@@ -1,0 +1,44 @@
+---
+name: Tokyo Institute of Technology
+description: Tokyo Institute of Technology public developer/API footprint review for APIs.json cataloging.
+url: https://raw.githubusercontent.com/api-evangelist/tokyo-institute-of-technology/refs/heads/main/review.yml
+created: '2026-06-03'
+modified: '2026-06-03'
+reviews:
+  - date: '2026-06-03'
+    rating: 2
+    summary: >-
+      Tokyo Institute of Technology (now part of the merged Institute of Science
+      Tokyo / Science Tokyo, isct.ac.jp) has a thin public machine-readable API
+      footprint. The clearest documented interface verified live is the T2R2
+      Research Repository OAI-PMH endpoint, which returned a valid OAI-PMH 2.0
+      Identify response (repository name "T2R2 -Tokyo Tech Research
+      Repository-", OCLC OAICat). Identity is federated SAML/Shibboleth via
+      GakuNin, not a public OAuth/OpenID Connect API. No official
+      institution-wide REST developer portal or open-data API was found; the
+      api-evangelist GitHub org for cataloging is confirmed, but no official
+      Science Tokyo institutional GitHub org exists (only lab/research orgs such
+      as prg-titech). LinkedIn returns 999 to bots but resolves in a browser; X
+      handle is @sciencetokyo_en. No fabricated endpoints included.
+    endpoints:
+      - url: https://t2r2.star.titech.ac.jp/oaipmh/OAIHandler?verb=Identify
+        status: 200
+        note: Valid OAI-PMH 2.0 Identify response; public, no signup.
+      - url: https://t2r2.star.titech.ac.jp/index_en.html
+        status: 200
+        note: T2R2 repository English landing / human docs.
+      - url: https://www.isct.ac.jp/en
+        status: 200
+        note: Official Science Tokyo (formerly Tokyo Tech) website.
+      - url: https://www.gsic.titech.ac.jp/en
+        status: 403
+        note: GSIC center pages (T2R2/IdP operator); blocks bot UA, browser-accessible.
+      - url: https://idp-gakunin.nap.gsic.titech.ac.jp/idp/shibboleth
+        status: 0
+        note: GakuNin Shibboleth SAML IdP entity (metadata endpoint, not a REST API).
+      - url: https://www.linkedin.com/school/sciencetokyo/
+        status: 999
+        note: LinkedIn school page; 999 is LinkedIn bot block, resolves in browser.
+      - url: https://github.com/api-evangelist
+        status: 200
+        note: Cataloging GitHub org confirmed to exist.

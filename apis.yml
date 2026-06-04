@@ -1,0 +1,85 @@
+---
+aid: tokyo-institute-of-technology
+name: Tokyo Institute of Technology
+description: >-
+  Tokyo Institute of Technology (Tokyo Tech / Titech) was a national research
+  university in Tokyo, Japan, ranked #76 in the QS World University Rankings
+  2025. In October 2024 it merged with Tokyo Medical and Dental University to
+  form the Institute of Science Tokyo (Science Tokyo), and its public web
+  presence now lives primarily at isct.ac.jp while legacy titech.ac.jp services
+  remain online. Its public, machine-readable developer footprint is limited:
+  the most clearly documented programmatic interface is the T2R2 (Science Tokyo
+  / Tokyo Tech Research Repository) OAI-PMH metadata harvesting endpoint.
+  Identity is federated through GakuNin using Shibboleth/SAML rather than a
+  public OAuth/OpenID Connect API. No official institution-wide REST developer
+  portal or open-data API was found.
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/tokyo-institute-of-technology/refs/heads/main/apis.yml
+tags:
+  - Education
+  - Higher Education
+  - University
+  - Japan
+  - Research
+  - Open Access
+  - Institutional Repository
+  - OAI-PMH
+created: '2026-06-03'
+modified: '2026-06-03'
+specificationVersion: '0.19'
+apis:
+  - aid: tokyo-institute-of-technology:t2r2-oaipmh
+    name: T2R2 Research Repository OAI-PMH
+    description: >-
+      OAI-PMH 2.0 metadata harvesting interface for T2R2, the Science Tokyo /
+      Tokyo Tech Research Repository operated by GSIC and the university
+      library. Exposes records (papers, theses, manuscripts, patents) for open
+      harvesting with no signup required. Built on OCLC's OAICat framework;
+      repository name "T2R2 -Tokyo Tech Research Repository-", protocol version
+      2.0. Verified live returning a valid Identify response.
+    humanURL: https://t2r2.star.titech.ac.jp/index_en.html
+    baseURL: https://t2r2.star.titech.ac.jp/oaipmh/OAIHandler
+    tags: [ Repository, OAI-PMH, Research, Open Access, Metadata ]
+    properties:
+      - type: Documentation
+        url: https://t2r2.star.titech.ac.jp/index_en.html
+  - aid: tokyo-institute-of-technology:gakunin-shibboleth
+    name: GakuNin Shibboleth Identity Provider (SAML)
+    description: >-
+      SAML 2.0 / Shibboleth identity provider for institutional single sign-on,
+      participating in Japan's GakuNin academic access management federation.
+      This is a federated SAML authentication endpoint for institutional login,
+      not a public OAuth/OpenID Connect developer API. Entity registered in the
+      GakuNin federation metadata.
+    humanURL: https://www.gsic.titech.ac.jp/en
+    tags: [ Authentication, Identity, SAML, Shibboleth, SSO, GakuNin ]
+    properties:
+      - type: Documentation
+        url: https://www.gsic.titech.ac.jp/en
+      - type: Authentication
+        url: https://idp-gakunin.nap.gsic.titech.ac.jp/idp/shibboleth
+common:
+  - type: Website
+    url: https://www.isct.ac.jp/en
+  - type: GitHub
+    url: https://github.com/prg-titech
+  - type: LinkedIn
+    url: https://www.linkedin.com/school/sciencetokyo/
+  - type: Twitter
+    url: https://twitter.com/sciencetokyo_en
+  - type: Authentication
+    url: https://idp-gakunin.nap.gsic.titech.ac.jp/idp/shibboleth
+  - type: Plans
+    url: plans/tokyo-institute-of-technology-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/tokyo-institute-of-technology-rate-limits.yml
+  - type: FinOps
+    url: finops/tokyo-institute-of-technology-finops.yml
+  - type: Review
+    url: review.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
