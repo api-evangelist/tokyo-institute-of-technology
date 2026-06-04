@@ -1,0 +1,59 @@
+{
+  "@context": {
+    "schema": "https://schema.org/",
+    "dc": "http://purl.org/dc/elements/1.1/",
+    "oai": "http://www.openarchives.org/OAI/2.0/",
+    "@vocab": "https://www.isct.ac.jp/ns#",
+    "name": "schema:name",
+    "alternateName": "schema:alternateName",
+    "url": "schema:url",
+    "description": "schema:description",
+    "logo": "schema:logo",
+    "email": "schema:email",
+    "sameAs": "schema:sameAs",
+    "foundingDate": "schema:foundingDate",
+    "department": "schema:department",
+    "repository": {
+      "@id": "schema:hasPart",
+      "@type": "@id"
+    },
+    "identifier": "schema:identifier",
+    "title": "dc:title",
+    "creator": "dc:creator",
+    "subject": "dc:subject",
+    "publisher": "dc:publisher",
+    "date": "dc:date",
+    "type": "dc:type",
+    "format": "dc:format",
+    "language": "dc:language",
+    "rights": "dc:rights",
+    "metadataPrefix": "oai:metadataPrefix",
+    "datestamp": "oai:datestamp",
+    "setSpec": "oai:setSpec"
+  },
+  "@type": "schema:CollegeOrUniversity",
+  "@id": "https://www.isct.ac.jp/en",
+  "name": "Institute of Science Tokyo",
+  "alternateName": [
+    "Tokyo Institute of Technology",
+    "Tokyo Tech",
+    "Titech",
+    "Science Tokyo"
+  ],
+  "url": "https://www.isct.ac.jp/en",
+  "description": "National research university in Tokyo, Japan, formed in October 2024 from the merger of Tokyo Institute of Technology and Tokyo Medical and Dental University.",
+  "foundingDate": "2024-10-01",
+  "sameAs": [
+    "https://github.com/prg-titech",
+    "https://www.linkedin.com/school/sciencetokyo/",
+    "https://twitter.com/sciencetokyo_en"
+  ],
+  "repository": {
+    "@type": "schema:DataCatalog",
+    "@id": "https://t2r2.star.titech.ac.jp/index_en.html",
+    "name": "T2R2 -Tokyo Tech Research Repository-",
+    "description": "OAI-PMH 2.0 metadata harvesting interface exposing research records (papers, theses, manuscripts, patents) in oai_dc and junii2 metadata formats.",
+    "url": "https://t2r2.star.titech.ac.jp/oaipmh/OAIHandler",
+    "publisher": "Institute of Science Tokyo"
+  }
+}
