@@ -62,6 +62,8 @@ apis:
       - type: Authentication
         url: https://idp-gakunin.nap.gsic.titech.ac.jp/idp/shibboleth
 common:
+  - type: DomainSecurity
+    url: security/tokyo-institute-of-technology-domain-security.yml
   - type: Website
     url: https://www.isct.ac.jp/en
   - type: GitHub
