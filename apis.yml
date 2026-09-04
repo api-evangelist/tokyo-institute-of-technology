@@ -44,7 +44,7 @@ accessModel:
   - probed
   generated: '2026-08-30'
   method: probed
-position: Consumer
+position: Consuming
 access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/tokyo-institute-of-technology.png
 url: https://raw.githubusercontent.com/api-evangelist/tokyo-institute-of-technology/refs/heads/main/apis.yml
