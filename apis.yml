@@ -120,6 +120,15 @@ apis:
   - Research
   - Open Access
   - Metadata
+  - Tenants
+  - JAIRO Cloud
+  - WEKO3
+  tags_raw:
+  - Repository
+  - OAI-PMH
+  - Research
+  - Open Access
+  - Metadata
   - Tenant
   - JAIRO Cloud
   - WEKO3
@@ -143,6 +152,12 @@ apis:
   humanURL: https://metadata.gakunin.nii.ac.jp/gakunin-metadata.xml
   baseURL: https://isct.ex-tic.com/auth/gakunin/saml2/assertions
   tags:
+  - Authentication
+  - Identity
+  - SAML
+  - GakuNin
+  - Tenants
+  tags_raw:
   - Authentication
   - Identity
   - SAML
