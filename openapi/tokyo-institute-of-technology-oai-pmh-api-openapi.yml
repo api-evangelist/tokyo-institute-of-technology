@@ -1,0 +1,176 @@
+openapi: 3.2.0
+info:
+  title: T2R2 Research Repository OAI PMH API
+  version: '2.0'
+  summary: OAI-PMH 2.0 metadata harvesting interface for the Science Tokyo / Tokyo Tech Research Repository (T2R2).
+  description: OAI-PMH 2.0 harvesting endpoint operated by the Institute of Science Tokyo (formerly Tokyo Institute of Technology) at t2r2.star.titech.ac.jp, on the institution's own registrable domain.
+  contact:
+    name: Library Infrastructure Group, Library Information Management Division, Institute of Science Tokyo
+    email: t2r2@libra.titech.ac.jp
+    url: https://www.isct.ac.jp/en/001/about/organizations/library
+  x-operator: institution
+  x-operator-evidence: servers[] host t2r2.star.titech.ac.jp is under titech.ac.jp, a registrable domain of the institution; the OAI-PMH Identify response names adminEmail t2r2@libra.titech.ac.jp, also an institution domain. No vendor host, vendor contact or vendor product name appears in the endpoint's self-description beyond the OAICat toolkit block, which names the software, not the operator.
+  x-provenance:
+    method: derived
+    generated: '2026-08-30'
+    source: https://t2r2.star.titech.ac.jp/oaipmh/OAIHandler?verb=Identify
+    protocol: http://www.openarchives.org/OAI/2.0/
+    note: Derived from live protocol probes plus the OAI-PMH 2.0 specification. Not published by the institution. Do not credit this document to the Institute of Science Tokyo as something they authored.
+  license:
+    name: Not stated by the operator
+    identifier: NOASSERTION
+servers:
+- url: https://t2r2.star.titech.ac.jp/oaipmh
+  description: Production harvesting host. The Identify response advertises baseURL over http://; https is served and was used for every probe.
+tags:
+- name: oai pmh
+  description: OAI-PMH 2.0 protocol verbs. All six verbs are dispatched from a single path via the `verb` query parameter.
+paths:
+  /OAIHandler:
+    get:
+      operationId: oaipmh
+      summary: OAI-PMH 2.0 request dispatcher
+      description: Single OAI-PMH entry point. The `verb` parameter selects the operation. The endpoint returns HTTP 200 for every well-formed HTTP request, including protocol errors — an OAI-PMH error is carried in the response body as , never as a 4xx. No authentication, no signup and no rate-limit headers were observed.
+      tags:
+      - oai pmh
+      security: []
+      parameters:
+      - name: verb
+        in: query
+        required: true
+        description: OAI-PMH protocol verb.
+        schema:
+          type: string
+          enum:
+          - Identify
+          - ListMetadataFormats
+          - ListSets
+          - ListIdentifiers
+          - ListRecords
+          - GetRecord
+      - name: metadataPrefix
+        in: query
+        required: false
+        description: 'Metadata format. Required for ListIdentifiers, ListRecords and GetRecord; omitting it returns badArgument. Verified supported values: oai_dc, junii2.'
+        schema:
+          type: string
+          enum:
+          - oai_dc
+          - junii2
+      - name: identifier
+        in: query
+        required: false
+        description: 'Record identifier, required for GetRecord. Observed form: oai:t2r2.star.titech.ac.jp:00215682'
+        schema:
+          type: string
+          pattern: ^oai:t2r2\.star\.titech\.ac\.jp:[0-9]+$
+      - name: from
+        in: query
+        required: false
+        description: Lower datestamp bound. Granularity YYYY-MM-DDThh:mm:ssZ, per Identify.
+        schema:
+          type: string
+          format: date-time
+      - name: until
+        in: query
+        required: false
+        description: Upper datestamp bound. Granularity YYYY-MM-DDThh:mm:ssZ, per Identify.
+        schema:
+          type: string
+          format: date-time
+      - name: set
+        in: query
+        required: false
+        description: Set spec. This repository does NOT support sets — ListSets returns error code noSetHierarchy, verified 2026-08-30.
+        schema:
+          type: string
+      - name: resumptionToken
+        in: query
+        required: false
+        description: Flow-control token returned with a truncated list response.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: An OAI-PMH 2.0 response envelope. Carries either the verb's result element or an <error> element; both are returned with HTTP 200.
+          content:
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/OAIPMHResponse'
+components:
+  schemas:
+    Identify:
+      type: object
+      description: Values below are the live values observed on 2026-08-30, not placeholders.
+      properties:
+        repositoryName:
+          type: string
+          examples:
+          - T2R2 -Tokyo Tech Research Repository-
+        baseURL:
+          type: string
+          format: uri
+          examples:
+          - http://t2r2.star.titech.ac.jp/oaipmh/OAIHandler
+        protocolVersion:
+          type: string
+          examples:
+          - '2.0'
+        adminEmail:
+          type: string
+          examples:
+          - mailto:t2r2@libra.titech.ac.jp
+        earliestDatestamp:
+          type: string
+          format: date-time
+          examples:
+          - '2008-05-01T00:00:00Z'
+        deletedRecord:
+          type: string
+          examples:
+          - 'no'
+        granularity:
+          type: string
+          examples:
+          - YYYY-MM-DDThh:mm:ssZ
+        compression:
+          type: array
+          items:
+            type: string
+            enum:
+            - gzip
+            - deflate
+    OAIPMHResponse:
+      type: object
+      title: OAI-PMH response envelope
+      description: XML document rooted at {http://www.openarchives.org/OAI/2.0/}OAI-PMH. Modelled here as an object because OpenAPI has no native XSD import; the authoritative schema is http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd.
+      xml:
+        name: OAI-PMH
+        namespace: http://www.openarchives.org/OAI/2.0/
+      properties:
+        responseDate:
+          type: string
+          format: date-time
+        request:
+          type: string
+          format: uri
+        error:
+          $ref: '#/components/schemas/OAIPMHError'
+        Identify:
+          $ref: '#/components/schemas/Identify'
+    OAIPMHError:
+      type: object
+      properties:
+        code:
+          type: string
+          enum:
+          - badArgument
+          - badResumptionToken
+          - badVerb
+          - cannotDisseminateFormat
+          - idDoesNotExist
+          - noRecordsMatch
+          - noMetadataFormats
+          - noSetHierarchy
+        message:
+          type: string

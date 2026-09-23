@@ -1,0 +1,84 @@
+generated: '2026-08-30'
+method: searched
+source: https://t2r2.star.titech.ac.jp/index_en.html
+docs: https://t2r2.star.titech.ac.jp/notice/notice20260722_eng.html
+note: >-
+  The single institution-operated machine-readable surface in this profile — the T2R2 OAI-PMH
+  endpoint — is in a published wind-down. This is not inference: the operator posted a dated
+  discontinuation schedule with named successor systems, and the T2R2 English landing page now
+  redirects to it. Recorded here so that a future re-profile can tell a retired surface from a
+  surface we simply failed to find, and so the catalog does not keep scoring a dead endpoint.
+versioning:
+  scheme: protocol-version
+  current: OAI-PMH 2.0
+  base: https://t2r2.star.titech.ac.jp/oaipmh/OAIHandler
+  stability_marking: >-
+    None in-band. OAI-PMH pins its own protocolVersion (2.0) in every response envelope; the
+    institution advertises no service version of its own.
+deprecation:
+  policy_url: https://t2r2.star.titech.ac.jp/index_en.html
+  policy_published: true
+  sunset_header: false
+  detail: >-
+    No RFC 8594 Sunset or Deprecation header is emitted on the OAI-PMH endpoint — the
+    discontinuation is announced in prose on the service's own landing page, dated 2026-07-22,
+    in Japanese and English. Item pages are stated to "remain available for the time being"
+    with no end date given.
+  observed_deprecations:
+  - item: T2R2 — Tokyo Tech Research Repository, public search function
+    status: withdrawn
+    date: '2026-08-20'
+    replaced_by: https://strdb.s.isct.ac.jp/ (Science Tokyo Research Information Database, STRDB)
+    source: https://t2r2.star.titech.ac.jp/index_en.html
+  - item: T2R2 full-text deposit
+    status: withdrawn
+    date: '2026-08-20'
+    replaced_by: https://isct.repo.nii.ac.jp/ (Science Tokyo Repository on JAIRO Cloud — TENANT, operated by NII/JPCOAR)
+    source: https://t2r2.star.titech.ac.jp/index_en.html
+  - item: T2R2 internal registration and update of research outputs
+    status: scheduled for discontinuation
+    date: '2026-10-01'
+    replaced_by: researchmap (national researcher directory) feeding STRDB
+    source: https://t2r2.star.titech.ac.jp/index_en.html
+  - item: STAR Search — public researcher information search
+    status: scheduled for discontinuation
+    date: '2026-10-01'
+    observed: >-
+      https://search.star.titech.ac.jp/ already returns HTTP 500 as of 2026-08-30, ahead of the
+      announced date. Effectively down.
+    replaced_by: https://strdb.s.isct.ac.jp/
+    source: https://t2r2.star.titech.ac.jp/index_en.html
+  - item: STAR Search internal site and researchmap export function
+    status: scheduled for discontinuation
+    date: '2027-03-31'
+    source: https://t2r2.star.titech.ac.jp/index_en.html
+  - item: OAI-PMH harvesting at t2r2.star.titech.ac.jp/oaipmh/OAIHandler
+    status: live, sunset implied
+    detail: >-
+      The endpoint still returns a valid Identify (HTTP 200, probed 2026-08-30) and is not named
+      explicitly in the discontinuation notice. Because it is a function of the T2R2 system whose
+      registration layer ends 2026-10-01, treat it as at risk and re-probe after that date rather
+      than assuming continuity.
+  - item: Tokyo Tech OpenCourseWare (ocw.titech.ac.jp)
+    status: unreachable
+    observed: >-
+      ocw.titech.ac.jp does not resolve; www.ocw.titech.ac.jp resolves to 131.112.242.8 but every
+      HTTP and HTTPS connection timed out at 25s on 2026-08-30. No successor was announced on any
+      institution page found. Recorded as unreachable, not as retired, because no notice was found.
+institution_context:
+  merger:
+    date: '2024-10-01'
+    detail: >-
+      Tokyo Institute of Technology merged with Tokyo Medical and Dental University to form the
+      Institute of Science Tokyo (Science Tokyo). The estate is still visibly mid-migration: the
+      corporate web presence has moved to isct.ac.jp, academic and service systems remain on
+      titech.ac.jp (t2r2.star, libra, gsic, educ, portal), and the institutional repository on
+      JAIRO Cloud still identifies itself by the pre-merger medical-side name. Any surface
+      inventory taken here has a short half-life.
+    evidence:
+    - url: https://www.isct.ac.jp/en
+      status: 200
+    - url: https://t2r2.star.titech.ac.jp/index_en.html
+      status: 200
+    - url: https://search.star.titech.ac.jp/
+      status: 500

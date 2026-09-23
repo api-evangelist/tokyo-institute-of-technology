@@ -1,0 +1,121 @@
+generated: '2026-08-30'
+method: derived
+evidence_method: probed
+evidence_note: >-
+  Every `evidence` string below is a live HTTP probe run by API Evangelist on 2026-08-30. The
+  document is ours; the responses it quotes are the operators'.
+source: openapi/tokyo-institute-of-technology-t2r2-oaipmh-openapi.yml
+docs: https://www.isct.ac.jp/en/001/about/organizations/library
+note: >-
+  Conformance for a UNIVERSITY, scored under the Kin Score `education` regime. Every entry below
+  is a live probe against a named endpoint, not a prose claim on a web page. `conforms: false`
+  entries are recorded because an absence measured is worth more to the cohort than a blank —
+  they are never penalties invented to fill the slot. Each hit names WHO OPERATES the surface
+  it was found on: an institution-operated conformance and a tenant conformance are different
+  facts about the same university.
+standards:
+- id: oai-pmh
+  conforms: true
+  operator: institution
+  evidence: >-
+    https://t2r2.star.titech.ac.jp/oaipmh/OAIHandler?verb=Identify returns HTTP 200 with a valid
+    OAI-PMH 2.0 envelope: protocolVersion 2.0, repositoryName "T2R2 -Tokyo Tech Research
+    Repository-", adminEmail mailto:t2r2@libra.titech.ac.jp, earliestDatestamp
+    2008-05-01T00:00:00Z, granularity YYYY-MM-DDThh:mm:ssZ, compression gzip + deflate.
+    ListMetadataFormats returns two prefixes: oai_dc and junii2. ListIdentifiers&metadataPrefix=oai_dc
+    returns real headers (oai:t2r2.star.titech.ac.jp:00215682). ListSets returns error code
+    noSetHierarchy — the repository declares no set hierarchy, which is conformant behaviour.
+    Host is under titech.ac.jp, an institution registrable domain. Probed 2026-08-30.
+  caveat: >-
+    This endpoint is scheduled for discontinuation — T2R2 registration and internal use end
+    2026-10-01 per the operator's own notice of 2026-07-22. See lifecycle/.
+- id: oai-pmh
+  instance: science-tokyo-repository
+  conforms: true
+  operator: tenant
+  evidence: >-
+    https://isct.repo.nii.ac.jp/oai?verb=Identify returns a valid OAI-PMH 2.0 Identify:
+    repositoryName "Tokyo Medical and Dental University Institutional Repository", baseURL
+    https://isct.repo.nii.ac.jp/oai, protocolVersion 2.0, adminEmail somu-lib@ml.tmd.ac.jp,
+    earliestDatestamp 2017-04-27T00:00:00Z. The host is an institution-specific subdomain
+    (isct.) on repo.nii.ac.jp — the JAIRO Cloud platform jointly operated by the National
+    Institute of Informatics and JPCOAR, running WEKO3. The data and the DOIs are the
+    institution's; the contract and the software are the platform's. Fetched 2026-08-30; the
+    platform's edge returns HTTP 406 to a plain curl User-Agent and serves the same content to
+    a browser-class client, so 406 is a bot block, not a dead host.
+- id: junii2
+  conforms: true
+  operator: institution
+  evidence: >-
+    ListMetadataFormats on the T2R2 endpoint advertises metadataPrefix junii2 alongside oai_dc.
+    junii2 is the Japanese national institutional-repository metadata schema maintained by NII;
+    supporting it is what makes the repository harvestable into IRDB and CiNii Research.
+- id: shibboleth
+  conforms: true
+  operator: institution
+  evidence: >-
+    Entity https://idp-gakunin.nap.gsic.titech.ac.jp/idp/shibboleth is present in the live GakuNin
+    federation aggregate at https://metadata.gakunin.nii.ac.jp/gakunin-metadata.xml (5.66 MB,
+    HTTP 200, fetched 2026-08-30) as an IDPSSODescriptor with OrganizationName "Institute of
+    Science Tokyo" / 東京科学大学, DisplayName "Institute of Science Tokyo (Science & Engineering
+    Field)", OrganizationURL https://portal.titech.ac.jp/. It advertises the Shibboleth 1.0
+    AuthnRequest profile at /idp/profile/Shibboleth/SSO. The IdP host is under titech.ac.jp and
+    is run by the institution's own information infrastructure centre.
+- id: saml
+  conforms: true
+  operator: institution
+  evidence: >-
+    The same GakuNin entity advertises SAML 2.0 SSO over HTTP-POST
+    (https://idp-gakunin.nap.gsic.titech.ac.jp/idp/profile/SAML2/POST/SSO) and HTTP-Redirect
+    (/idp/profile/SAML2/Redirect/SSO), plus SAML 1.0 and SAML 2.0 SOAP AttributeQuery on port
+    8443. Published SAML 2.0 metadata inside a national federation aggregate is the most
+    machine-readable interface this institution operates.
+- id: saml
+  instance: ex-tic-gakunin-entity
+  conforms: true
+  operator: tenant
+  evidence: >-
+    A second entity for the same institution, https://isct.ex-tic.com/auth/gakunin/saml2/assertions,
+    is registered in the GakuNin aggregate with OrganizationName "Institute of Science Tokyo" and
+    OrganizationURL https://www.tmd.ac.jp (the pre-merger medical/dental side). The host is an
+    institution-specific subdomain on ex-tic.com, a commercial platform — tenant, not
+    institution-operated. A bare GET returns HTTP 400 because the endpoint is a SAML assertion
+    consumer expecting a POST, which is correct behaviour, not a dead host.
+- id: orcid
+  conforms: false
+  evidence: >-
+    No ORCID integration surface was found on any institution host. The successor researcher
+    system STRDB (https://strdb.s.isct.ac.jp/, HTTP 200) synchronises from researchmap, Japan's
+    national researcher directory, rather than exposing or consuming ORCID directly; the T2R2
+    sunset notice names researchmap as the migration target and never mentions ORCID.
+- id: datacite
+  conforms: false
+  evidence: >-
+    No DataCite endpoint, prefix statement or DOI-minting claim was found on an institution host.
+    Doctoral dissertation DOIs for Japanese universities are minted through JaLC via JAIRO Cloud,
+    which is the tenant platform's function, not the institution's.
+- id: crossref
+  conforms: false
+  evidence: No Crossref member surface or deposit endpoint operated by the institution was found.
+- id: scim
+  conforms: false
+  evidence: >-
+    No SCIM endpoint. Identity is federated through GakuNin SAML; there is no public provisioning
+    interface. /scim/v2 and /.well-known probes on the institution hosts returned nothing.
+- id: lti
+  conforms: false
+  evidence: >-
+    No LTI tool or platform registration surface is published. The LMS is behind institutional
+    login (students.isct.ac.jp portal/LMS page, HTTP 200, describes a credentialed system).
+- id: oneroster
+  conforms: false
+  evidence: No OneRoster endpoint. The syllabus system at https://syllabus.s.isct.ac.jp/ (HTTP 200) is HTML only.
+- id: ed-fi
+  conforms: false
+  evidence: Ed-Fi is a US K-12/state-longitudinal standard with no adoption path in the Japanese national-university sector; no surface found.
+- id: caliper
+  conforms: false
+  evidence: No Caliper Analytics event store or sensor endpoint found.
+- id: qti
+  conforms: false
+  evidence: No QTI assessment interchange surface found on any institution host.

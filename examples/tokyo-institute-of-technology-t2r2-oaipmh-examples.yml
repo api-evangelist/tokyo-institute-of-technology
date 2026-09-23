@@ -1,0 +1,97 @@
+generated: '2026-08-30'
+method: searched
+evidence_method: probed
+evidence_note: >-
+  The response payloads below are the institution's own bytes, fetched live on 2026-08-30 and
+  reproduced verbatim (whitespace reflowed, truncation marked in-band). Only the surrounding
+  `reading:` commentary is API Evangelist's.
+source: https://t2r2.star.titech.ac.jp/oaipmh/OAIHandler
+docs: openapi/tokyo-institute-of-technology-t2r2-oaipmh-openapi.yml
+note: >-
+  Every request and response fragment below was captured live from the institution-operated
+  endpoint on 2026-08-30 with a browser-class User-Agent. Nothing here is synthesised. Responses
+  are truncated where noted and the truncation is marked in-band.
+operator: institution
+examples:
+- name: Identify
+  request: GET https://t2r2.star.titech.ac.jp/oaipmh/OAIHandler?verb=Identify
+  status: 200
+  content_type: text/xml
+  response: |
+    <?xml version="1.0" encoding="UTF-8" ?>
+    <OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/">
+      <responseDate>2026-08-30T20:17:33Z</responseDate>
+      <request verb="Identify">http://t2r2.star.titech.ac.jp/oaipmh/OAIHandler</request>
+      <Identify>
+        <repositoryName>T2R2 -Tokyo Tech Research Repository-</repositoryName>
+        <baseURL>http://t2r2.star.titech.ac.jp/oaipmh/OAIHandler</baseURL>
+        <protocolVersion>2.0</protocolVersion>
+        <adminEmail>mailto:t2r2@libra.titech.ac.jp</adminEmail>
+        <earliestDatestamp>2008-05-01T00:00:00Z</earliestDatestamp>
+        <deletedRecord>no</deletedRecord>
+        <granularity>YYYY-MM-DDThh:mm:ssZ</granularity>
+        <compression>gzip</compression>
+        <compression>deflate</compression>
+        <description>
+          <oai-identifier xmlns="http://www.openarchives.org/OAI/2.0/oai-identifier">
+            <scheme>oai</scheme>
+            <repositoryIdentifier>oaicat.oclc.org</repositoryIdentifier>
+            <delimiter>:</delimiter>
+            <sampleIdentifier>oai:oaicat.oclc.org:OCLCNo/ocm00000012</sampleIdentifier>
+          </oai-identifier>
+        </description>
+        <description>
+          <toolkit xmlns="http://oai.dlib.vt.edu/OAI/metadata/toolkit">
+            <title>OCLC's OAICat Repository Framework</title>
+            <version>1.5.46</version>
+          </toolkit>
+        </description>
+      </Identify>
+    </OAI-PMH>
+  reading: >-
+    The <toolkit> block names OCLC's OAICat — the SOFTWARE, which is open source and deployed by
+    the institution. It is not a hosted vendor service and does not make this a vendor surface.
+    repositoryIdentifier "oaicat.oclc.org" is OAICat's stock default, left unchanged; the real
+    identifiers minted by this repository use the oai:t2r2.star.titech.ac.jp: prefix, as the
+    ListIdentifiers example below shows.
+- name: ListMetadataFormats
+  request: GET https://t2r2.star.titech.ac.jp/oaipmh/OAIHandler?verb=ListMetadataFormats
+  status: 200
+  response_summary: 'Two metadataPrefix values returned: oai_dc, junii2.'
+  reading: junii2 is the NII national institutional-repository schema; supporting it is what makes this repository harvestable into IRDB and CiNii Research.
+- name: ListIdentifiers
+  request: GET https://t2r2.star.titech.ac.jp/oaipmh/OAIHandler?verb=ListIdentifiers&metadataPrefix=oai_dc
+  status: 200
+  response: |
+    <ListIdentifiers>
+      <header status="deleted">
+        <identifier>oai:t2r2.star.titech.ac.jp:00215682</identifier>
+        <datestamp>2010-04-26T09:59:31Z</datestamp>
+      </header>
+      <header status="deleted">
+        <identifier>oai:t2r2.star.titech.ac.jp:50708229</identifier>
+        <datestamp>2024-07-30T05:13:38Z</datestamp>
+      </header>
+      <!-- truncated: the live response continues past this point -->
+    </ListIdentifiers>
+  reading: >-
+    Real institution-scoped identifiers. Note that Identify declares deletedRecord "no" while
+    headers carry status="deleted" — an internal inconsistency in the repository's own
+    behaviour, recorded as observed rather than corrected.
+- name: ListSets
+  request: GET https://t2r2.star.titech.ac.jp/oaipmh/OAIHandler?verb=ListSets
+  status: 200
+  response: |
+    <error code="noSetHierarchy">The repository does not support sets.</error>
+  reading: Conformant. The repository declares no set hierarchy; harvesters must take the whole corpus or filter by datestamp.
+- name: Protocol error - bad verb
+  request: GET https://t2r2.star.titech.ac.jp/oaipmh/OAIHandler?verb=Bogus
+  status: 200
+  response: |
+    <error code="badVerb">Illegal verb</error>
+  reading: HTTP 200 with an in-band error. A client that reads only status codes will treat every protocol failure here as a success.
+- name: Protocol error - missing required argument
+  request: GET https://t2r2.star.titech.ac.jp/oaipmh/OAIHandler?verb=ListRecords
+  status: 200
+  response: |
+    <error code="badArgument">The request includes illegal arguments, is missing required arguments, includes a repeated argument, or values for arguments have an illegal syntax.</error>

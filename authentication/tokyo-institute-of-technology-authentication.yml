@@ -1,0 +1,82 @@
+generated: '2026-08-30'
+method: derived
+evidence_method: probed
+evidence_note: >-
+  Derived by API Evangelist from the live GakuNin federation metadata aggregate plus direct
+  probes of the advertised endpoints on 2026-08-30. The institution publishes no authentication
+  document of its own.
+source: https://metadata.gakunin.nii.ac.jp/gakunin-metadata.xml
+docs: https://www.gakunin.jp/en
+note: >-
+  This institution publishes no OAuth 2.0 or OpenID Connect developer API. Its authentication
+  posture is entirely federated SAML: a Shibboleth Identity Provider registered in GakuNin,
+  Japan's national academic access management federation. That is a real, machine-readable,
+  institution-operated interface — it is simply not a developer API, and must not be counted as
+  one. The one public harvesting endpoint the institution runs (T2R2 OAI-PMH) requires no
+  authentication at all.
+summary:
+  types:
+  - saml2
+  api_key_in: []
+  oauth2_flows: []
+  public_unauthenticated_surfaces:
+  - https://t2r2.star.titech.ac.jp/oaipmh/OAIHandler
+  note: >-
+    No signup, no API key, no bearer token and no rate-limit headers were observed on the
+    OAI-PMH endpoint. No /.well-known/openid-configuration and no /.well-known/oauth-authorization-server
+    was found on any institution host.
+schemes:
+- name: GakuNin Shibboleth IdP (Science & Engineering field)
+  type: saml2
+  operator: institution
+  entity_id: https://idp-gakunin.nap.gsic.titech.ac.jp/idp/shibboleth
+  organization: Institute of Science Tokyo / 東京科学大学
+  display_name: Institute of Science Tokyo (Science & Engineering Field)
+  organization_url: https://portal.titech.ac.jp/
+  federation: GakuNin (Academic Access Management Federation in Japan), operated by NII
+  metadata_source: https://metadata.gakunin.nii.ac.jp/gakunin-metadata.xml
+  endpoints:
+  - binding: urn:mace:shibboleth:1.0:profiles:AuthnRequest
+    location: https://idp-gakunin.nap.gsic.titech.ac.jp/idp/profile/Shibboleth/SSO
+  - binding: urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST
+    location: https://idp-gakunin.nap.gsic.titech.ac.jp/idp/profile/SAML2/POST/SSO
+  - binding: urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect
+    location: https://idp-gakunin.nap.gsic.titech.ac.jp/idp/profile/SAML2/Redirect/SSO
+  - binding: urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding
+    location: https://idp-gakunin.nap.gsic.titech.ac.jp:8443/idp/profile/SAML1/SOAP/AttributeQuery
+  - binding: urn:oasis:names:tc:SAML:2.0:bindings:SOAP
+    location: https://idp-gakunin.nap.gsic.titech.ac.jp:8443/idp/profile/SAML2/SOAP/AttributeQuery
+  observed: >-
+    GET https://idp-gakunin.nap.gsic.titech.ac.jp/idp/shibboleth redirects (HTTP 200) to the
+    institution's own login portal at portal.nap.gsic.titech.ac.jp with resource id
+    idp-gakunin-2015 and an authentication-factor list including CERTIFICATE, GRID, TOKENRO and
+    OTP. Probed 2026-08-30.
+  audience: Members of the institution and of GakuNin-federated services. Not issuable to third-party developers.
+- name: EX-TIC GakuNin entity for Institute of Science Tokyo
+  type: saml2
+  operator: tenant
+  entity_id: https://isct.ex-tic.com/auth/gakunin/saml2/assertions
+  organization: Institute of Science Tokyo / 東京科学大学
+  organization_url: https://www.tmd.ac.jp
+  federation: GakuNin
+  metadata_source: https://metadata.gakunin.nii.ac.jp/gakunin-metadata.xml
+  endpoints:
+  - binding: urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST
+    location: https://isct.ex-tic.com/auth/gakunin/saml2/assertions
+  - binding: urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect
+    location: https://isct.ex-tic.com/auth/gakunin/saml2/assertions
+  observed: >-
+    A bare GET returns HTTP 400 — correct for a SAML assertion endpoint that expects a POST, and
+    not evidence of a dead host. Probed 2026-08-30.
+  operator_note: >-
+    The host is an institution-specific subdomain on ex-tic.com, a commercial platform. The
+    institution's identity is real and federated here; the engineering is the vendor's. Recorded
+    as a tenant relationship, which is a genuine institutional fact, rather than credited to the
+    institution or deleted.
+absent:
+- id: oauth2
+  evidence: No authorization or token endpoint published on any institution host.
+- id: oidc
+  evidence: /.well-known/openid-configuration not served on isct.ac.jp or titech.ac.jp hosts probed.
+- id: api-key
+  evidence: No key issuance surface, no developer portal, no signup flow found.

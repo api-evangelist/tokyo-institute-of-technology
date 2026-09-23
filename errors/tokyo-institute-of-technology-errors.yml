@@ -1,0 +1,48 @@
+generated: '2026-08-30'
+method: derived
+source: openapi/tokyo-institute-of-technology-t2r2-oaipmh-openapi.yml
+docs: http://www.openarchives.org/OAI/openarchivesprotocol.html#ErrorConditions
+note: >-
+  Error model for the one institution-operated endpoint in this profile. Derived from the
+  OAI-PMH 2.0 specification and confirmed against live responses where marked observed:true.
+  The institution publishes no error catalogue of its own; do not credit this document to them.
+operator: institution
+transport:
+  status_code_semantics: >-
+    Every well-formed HTTP request returns HTTP 200, INCLUDING protocol errors. The error is
+    carried in the XML body as <error code="..."/> inside the OAI-PMH envelope. There is no
+    4xx/5xx signalling of protocol failure, no application/problem+json (RFC 9457), no
+    Retry-After and no rate-limit headers. Observed 2026-08-30 on badVerb and badArgument.
+  content_type: text/xml
+codes:
+- code: badVerb
+  meaning: Value of the verb argument is not a legal OAI-PMH verb, is repeated, or is missing.
+  observed: true
+  observed_body: Illegal verb
+- code: badArgument
+  meaning: Request includes illegal arguments, is missing required arguments, repeats an argument, or an argument value has illegal syntax.
+  observed: true
+  observed_body: >-
+    The request includes illegal arguments, is missing required arguments, includes a repeated
+    argument, or values for arguments have an illegal syntax.
+- code: noSetHierarchy
+  meaning: The repository does not support sets.
+  observed: true
+  observed_body: The repository does not support sets.
+  note: Returned for ListSets and for any request carrying a set argument.
+- code: cannotDisseminateFormat
+  meaning: The metadataPrefix is not supported by the item or the repository.
+  observed: false
+  applies_to: Any prefix other than oai_dc or junii2.
+- code: idDoesNotExist
+  meaning: The identifier is unknown or illegal in this repository.
+  observed: false
+- code: noRecordsMatch
+  meaning: The from / until / set combination results in an empty list.
+  observed: false
+- code: badResumptionToken
+  meaning: The resumptionToken is invalid or expired.
+  observed: false
+- code: noMetadataFormats
+  meaning: No metadata formats available for the specified item.
+  observed: false
