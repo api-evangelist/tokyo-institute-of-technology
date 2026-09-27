@@ -99,6 +99,24 @@ paths:
                 $ref: '#/components/schemas/OAIPMHResponse'
 components:
   schemas:
+    OAIPMHResponse:
+      type: object
+      title: OAI-PMH response envelope
+      description: XML document rooted at {http://www.openarchives.org/OAI/2.0/}OAI-PMH. Modelled here as an object because OpenAPI has no native XSD import; the authoritative schema is http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd.
+      xml:
+        name: OAI-PMH
+        namespace: http://www.openarchives.org/OAI/2.0/
+      properties:
+        responseDate:
+          type: string
+          format: date-time
+        request:
+          type: string
+          format: uri
+        error:
+          $ref: '#/components/schemas/OAIPMHError'
+        Identify:
+          $ref: '#/components/schemas/Identify'
     Identify:
       type: object
       description: Values below are the live values observed on 2026-08-30, not placeholders.
@@ -140,24 +158,6 @@ components:
             enum:
             - gzip
             - deflate
-    OAIPMHResponse:
-      type: object
-      title: OAI-PMH response envelope
-      description: XML document rooted at {http://www.openarchives.org/OAI/2.0/}OAI-PMH. Modelled here as an object because OpenAPI has no native XSD import; the authoritative schema is http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd.
-      xml:
-        name: OAI-PMH
-        namespace: http://www.openarchives.org/OAI/2.0/
-      properties:
-        responseDate:
-          type: string
-          format: date-time
-        request:
-          type: string
-          format: uri
-        error:
-          $ref: '#/components/schemas/OAIPMHError'
-        Identify:
-          $ref: '#/components/schemas/Identify'
     OAIPMHError:
       type: object
       properties:
