@@ -1,4 +1,4 @@
-# Tokyo Institute of Technology (tokyo-institute-of-technology)
+# Tokyo Institute of Technology
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,51 +64,117 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Tokyo Institute of Technology (Tokyo Tech / Titech) was a national research university in Tokyo, Japan, ranked **#76 in the QS World University Rankings 2025**. In October 2024 it merged with Tokyo Medical and Dental University to form the **Institute of Science Tokyo (Science Tokyo)**, with its public web presence now at [isct.ac.jp](https://www.isct.ac.jp/en) while legacy `titech.ac.jp` services remain online. This repository catalogs the institution's public, machine-readable developer/API footprint as an APIs.json profile.
+Tokyo Institute of Technology (Tokyo Tech / Titech) was Japan's leading national institute of technology and ranked #76 in the QS World University Rankings 2025. On 2024-10-01 it merged with Tokyo Medical and Dental University to form the Institute of Science Tokyo (Science Tokyo); the corporate web presence moved to isct.ac.jp while most academic and service systems still run on titech.ac.jp. Its institution-operated programmable footprint is small and, as of 2026-08-30, shrinking. There is no developer portal, no public REST API, no open-data portal and no OAuth or OpenID Connect surface anywhere on its domains. What the institution genuinely operates and we verified live is two protocol endpoints: the T2R2 research repository's OAI-PMH 2.0 harvesting interface (oai_dc and junii2), and a Shibboleth/SAML 2.0 Identity Provider registered in GakuNin, Japan's national academic access management federation. The first is being switched off — the operator published a discontinuation schedule on 2026-07-22 that ended T2R2 search on 2026-08-20 and ends T2R2 registration on 2026-10-01, moving full text to the Science Tokyo Repository on JAIRO Cloud, which is a TENANT surface run by NII and JPCOAR rather than by the university. The library discovery layer, the syllabus system, the STRDB researcher database and the TSUBAME4 supercomputer service are all real institution-run systems with human interfaces only — none of them publishes a machine-readable contract.
 
-- APIs.json: https://raw.githubusercontent.com/api-evangelist/tokyo-institute-of-technology/refs/heads/main/apis.yml
-- Run with Naftiko: https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=tokyo-institute-of-technology-api-evangelist&utm_content=repo
+**Areas:** Education · Higher Education · University · Institute of Technology · Japan · Research · Research Data · Open Access · Institutional Repository · OAI-PMH · Identity Federation · Shibboleth
 
-## Type
+## Tokyo Institute of Technology on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Tokyo Institute of Technology is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/tokyo-institute-of-technology/](https://apis.io/providers/tokyo-institute-of-technology/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (4)
 
-Education, Higher Education, University, Japan, Research, Open Access, Institutional Repository, OAI-PMH
+- [GakuNin Shibboleth Identity Provider (SAML 2.0)](https://apis.io/apis/tokyo-institute-of-technology/gakunin-shibboleth/) — Shibboleth / SAML 2.0 Identity Provider for institutional single sign-on, registered in GakuNin, Japan's national academic access management federation…
+- [Science Tokyo Repository OAI-PMH (JAIRO Cloud tenant)](https://apis.io/apis/tokyo-institute-of-technology/science-tokyo-repository-oaipmh/) — OAI-PMH 2.0 endpoint for the institution's tenancy on JAIRO Cloud — the successor repository named in the T2R2 discontinuation notice as the destination for…
+- [EX-TIC GakuNin SAML entity (tenant)](https://apis.io/apis/tokyo-institute-of-technology/ex-tic-gakunin-entity/) — A second GakuNin-registered SAML 2.0 entity carrying the Institute of Science Tokyo identity, hosted on the commercial EX-TIC platform and pointing at the…
+- [Tokyo Institute of Technology OAI PMH API](https://apis.io/apis/tokyo-institute-of-technology/tokyo-institute-of-technology-oai-pmh-api/) — OAI-PMH 2.0 protocol verbs. All six verbs are dispatched from a single path via the `verb` query parameter.
 
-## APIs
+### Published properties
 
-- **T2R2 Research Repository OAI-PMH** — OAI-PMH 2.0 metadata harvesting interface for the Science Tokyo / Tokyo Tech Research Repository (papers, theses, manuscripts, patents); public, no signup. Docs: https://t2r2.star.titech.ac.jp/index_en.html — Base: `https://t2r2.star.titech.ac.jp/oaipmh/OAIHandler`
-- **GakuNin Shibboleth Identity Provider (SAML)** — Federated SAML 2.0 / Shibboleth institutional single sign-on via Japan's GakuNin federation; an authentication endpoint, not a public OAuth/OpenID Connect developer API. Docs: https://www.gsic.titech.ac.jp/en
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## Plans / Rate Limits / FinOps
+#### JSON-LD (1)
 
-- Plans & Pricing: [plans/tokyo-institute-of-technology-plans-pricing.yml](plans/tokyo-institute-of-technology-plans-pricing.yml)
-- Rate Limits: [rate-limits/tokyo-institute-of-technology-rate-limits.yml](rate-limits/tokyo-institute-of-technology-rate-limits.yml)
-- FinOps: [finops/tokyo-institute-of-technology-finops.yml](finops/tokyo-institute-of-technology-finops.yml)
+Linked-data contexts for the provider's vocabulary.
 
-## Timestamps
+- [Tokyo Institute Of Technology Context](https://apis.io/jsonld/tokyo-institute-of-technology/tokyo-institute-of-technology-context/)
 
-- Created: 2026-06-03
-- Modified: 2026-06-03
+#### Security (2)
 
-## Common Properties
+Authentication, trust centre, and vulnerability disclosure.
 
-- Website: https://www.isct.ac.jp/en
-- GitHub (research group, no official institutional org): https://github.com/prg-titech
-- LinkedIn: https://www.linkedin.com/school/sciencetokyo/
-- Twitter/X: https://twitter.com/sciencetokyo_en
-- Authentication (GakuNin Shibboleth IdP): https://idp-gakunin.nap.gsic.titech.ac.jp/idp/shibboleth
-- Review: [review.yml](review.yml)
+- [Tokyo Institute Of Technology Authentication](https://apis.io/security/tokyo-institute-of-technology/tokyo-institute-of-technology-authentication/)
+- [Tokyo Institute Of Technology Domain Security](https://apis.io/security/tokyo-institute-of-technology/tokyo-institute-of-technology-domain-security/)
 
-## Notes
+#### Plans and pricing (1)
 
-- Verification caveats: the T2R2 OAI-PMH endpoint was confirmed live (HTTP 200, valid OAI-PMH 2.0 `Identify` response). The GSIC pages return 403 to bot user agents but are browser-accessible. The LinkedIn school page returns 999 (LinkedIn bot block) yet resolves in a browser. The Shibboleth IdP is a SAML metadata entity, not a REST API.
-- No official institution-wide REST developer portal or open-data API was found. There is no official Science Tokyo institutional GitHub organization; only lab/research-group orgs exist (e.g., `prg-titech`). No endpoints were fabricated.
+Published plans, tiers and prices.
 
-## Maintainers
+- [Tokyo Institute Of Technology Plans Pricing](https://apis.io/plans/tokyo-institute-of-technology/tokyo-institute-of-technology-plans-pricing/)
 
-- Kin Lane — kin@apievangelist.com
+#### Rate limits (1)
+
+Published request limits.
+
+- [Tokyo Institute Of Technology Rate Limits](https://apis.io/rate-limits/tokyo-institute-of-technology/tokyo-institute-of-technology-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Tokyo Institute Of Technology Finops](https://apis.io/finops/tokyo-institute-of-technology/tokyo-institute-of-technology-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.isct.ac.jp/en)
+- [Documentation](https://t2r2.star.titech.ac.jp/index_en.html)
+- [Support](https://www.isct.ac.jp/en/inquiries)
+- [Blog](https://www.isct.ac.jp/en/news)
+- [Terms of service](https://www.isct.ac.jp/en/001/web-accessibility-policy)
+- [Privacy policy](https://www.isct.ac.jp/en/001/privacy-policy)
+- [GitHub](https://github.com/science-tokyo)
+
+## API Evangelist rating
+
+**Kin Score 28.7** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 22.3 |
+| Contract governance | 4.5 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 38.1 |
+| Access clarity | 26.3 |
+
+**Agent readiness 20.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | na |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | documented (partial credit) |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 32.4** — Education & Research
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/tokyo-institute-of-technology/](https://apis.io/providers/tokyo-institute-of-technology/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Tokyo Institute of Technology: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/tokyo-institute-of-technology/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
